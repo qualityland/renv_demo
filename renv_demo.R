@@ -99,7 +99,7 @@ renv::snapshot()
 #                                                ------------------------------
 #                                                !!! uncomment library call !!!
 #                                                ------------------------------
-library(ggplot2)
+#library(ggplot2)
 
 
 # show used packages
@@ -107,7 +107,7 @@ renv::dependencies()
 
 # Data42:   MRAN 2020-04-27 with ggplot2 v3.3.0
 # DaVinci:  MRAN 2019-11-22 with ggplot2 v3.2.1
-install.packages("ggplot2")
+#install.packages("ggplot2")
 # same as renv::install("ggplot2")
 
 # check dependencies
