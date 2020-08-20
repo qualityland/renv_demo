@@ -1,4 +1,13 @@
-library(renv)
+
+
+
+###############################################################################
+###                         Current renv Version                            ###
+###############################################################################
+packageVersion("renv")
+
+
+
 
 
 
@@ -7,35 +16,34 @@ library(renv)
 ###############################################################################
 
 # upgrade renv
-#renv::upgrade()
-
+#renv::upgrade(version = "0.11.0")
 #                                                     -------------------------
 #                                                     !!! restart R session !!!
 #                                                     -------------------------
 
 
-
-
-
 ###############################################################################
 ###              Initialization of a Project-local Library                  ###
 ###############################################################################
+library(renv)
 
 # initialize project-local library with a private R library
 renv::init()
-# project infrastructure changes are:
-#   - renv.lock file: repositories & package metadata
-#   - .Rprofile file: calls the ~/renv/activate.R script
-#   - renv/library subfolder: holds the project libraries
-#   - .gitignore: updated
 
 
 # library path
 .libPaths()
 # library path:
-#   - system library: 29 base & recommended packages
-#   - project library: all contributed packages used in you project
+#   - project library:          all contributed packages used in you project
+#   - system library:           29 base & recommended packages
 #   - completely local
+
+
+# project infrastructure changes are:
+#   - renv/library subfolder:   holds the project libraries
+#   - renv.lock file:           repositories & package metadata
+#   - .Rprofile file:           calls the ~/renv/activate.R script
+#   - renv/.gitignore:          updated
 
 
 # repositories
@@ -57,7 +65,7 @@ renv::dependencies()
 # show status of local library
 renv::status()
 
-# some packages already updated on Data42:
+# on Data42: some packages already updated (compared to MRAN 2020-04-27)
 
 # package     MRAN        Data42
 # -------   ---------   ---------
@@ -91,13 +99,14 @@ renv::snapshot()
 #                                                ------------------------------
 #                                                !!! uncomment library call !!!
 #                                                ------------------------------
-#library(ggplot2)
+library(ggplot2)
 
 
 # show used packages
 renv::dependencies()
 
-# MRAN 2020-04-27: ggplot2 v3.3.0
+# Data42:   MRAN 2020-04-27 with ggplot2 v3.3.0
+# DaVinci:  MRAN 2019-11-22 with ggplot2 v3.2.1
 install.packages("ggplot2")
 # same as renv::install("ggplot2")
 
@@ -123,8 +132,18 @@ renv::snapshot()
 ###                 Change repository from MRAN to CRAN                     ###
 ###############################################################################
 
+#                                                               ---------------
+#                                                               !!! Data 42 !!!
+#                                                               ---------------
 # CRAN server:
 # https://cloud.r-project.org
+
+#                                                               ---------------
+#                                                               !!! DaVinci !!!
+#                                                               ---------------
+# MRAN server:
+# last R-3.6 snapshot
+# https://cran.microsoft.com/snapshot/2020-04-24/
 
 renv::modify()
 
@@ -140,11 +159,24 @@ renv::modify()
 # starting with ggplot2 v3.3.0 from MRAN snapshot 2020-04-27
 packageVersion("ggplot2")
 
+
+
+#                                                               ---------------
+#                                                               !!! Data 42 !!!
+#                                                               ---------------
 # update to v3.3.1
 renv::install("ggplot2@3.3.1")
 
 # update to v3.3.2
 renv::install("ggplot2@3.3.2")
+
+
+
+#                                                               ---------------
+#                                                               !!! DaVinci !!!
+#                                                               ---------------
+# update to v3.3.0
+renv::install("ggplot2@3.3.0")
 
 
 
@@ -182,4 +214,46 @@ renv::snapshot()
 
 
 
+
+
+
+###############################################################################
+###                              Not yet evaluated                          ###
+###############################################################################
+
+# - cache shared among multiple users
+# - restore project library from an old renv.lock file (commited to gitlab)
+
+
+
+
+
+
+
+
+
+###############################################################################
+###                          checkpoint vs. renv                            ###
+###############################################################################
+
+# PRO checkpoint
+# - maintained by Microsoft
+# - more lightweight
+
+
+# CONTRA checkpoint
+# - same package version re-built for every MRAN snapshot
+# - per user cache
+
+
+# PRO renv
+# - maintained by RStudio
+# - fast, since binaries are cached too
+# - same package version built only once
+# - prepared to share cache among multiple users
+# - possibility to restore old library state (even from git)
+
+
+# CONTRA renv
+# - a bit more complex
 
